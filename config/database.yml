@@ -1,25 +1,36 @@
-# SQLite version 3.x
-#   gem install sqlite3
 #
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
-development:
-  adapter: sqlite3
-  database: db/development.sqlite3
-  pool: 5
-  timeout: 5000
-
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
-test:
-  adapter: sqlite3
-  database: db/test.sqlite3
-  pool: 5
-  timeout: 5000
+# install the mysql driver
+#   gem install mysql2
+#
+#
+# ensure the mysql gem is defined in your gemfile
+#   gem 'mysql2'
+#
+# and be sure to use new-style password hashing:
+#   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
+#
+#  add " gem 'mysql2' " to the gem file
 
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: mysql2
+  database: aurasys
+  host: localhost
+  username: aurauser
+  password: aurauser
+  encoding: utf8
+
+development:
+  adapter: mysql2
+  database: aurasys_development
+  host: localhost
+  username: aurauser
+  password: aurauser
+  encoding: utf8
+
+test:
+  adapter: mysql2
+  database: aurasys_test
+  host: localhost
+  username: aurauser
+  password: aurauser
+  encoding: utf8
