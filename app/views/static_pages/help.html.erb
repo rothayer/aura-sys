@@ -1,2 +1,215 @@
-<h1>StaticPages#help</h1>
-<p>Find me in app/views/static_pages/help.html.erb</p>
+<% provide(:title, 'Help') %>
+<% provide(:help, " <h1>Aura Decision Systems</h1>
+	    <p id='showd'>Aura Decision Systems website powered by
+	      <a href='http://rubyonrails.org/'>Ruby on Rails</a> and the
+	      <a href='http://redmine.org/'> Redmine Project</a>
+	    </p>
+	    <p>For help or general questions, 
+	      <a href:'../static_pages/contact'>contact </a> us.  Thanks!</p>") %>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Aura Decision Systems | <%= yield(:title) %></title>
+
+    <script type="text/javascript">
+      function changeShowdContent(caller, page) {
+try {
+        if (caller.id == "help") {
+         document.getElementById("showd").innerHTML = '<h2>' + page + '</h2>';
+} else {
+         var url = "/" + caller.id;
+      alert(url + " returns ");
+alert(httpGet(url));
+         document.getElementById("showd").innerHTML = httpGet(url);
+}
+
+         var buttons = new Array("about", "help", "home", "contact") ;
+         
+         var button = null;
+                 caller.style.color = '#fa3';
+                 caller.style.borderColor = '#f80';
+         for (var i=0; i < buttons.length; i++) {
+             button = document.getElementById(buttons[i]);
+if (button != null) {
+             if (caller.id != button.id) {
+                 button.style.color = '';
+                 button.style.borderColor = '';
+             }
+}
+         }
+} catch (err) {
+    alert("error: " + err);
+}
+      }
+
+
+function httpGet(theUrl)
+{
+    if (window.XMLHttpRequest)
+    {// code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp=new XMLHttpRequest();
+    }
+    else
+    {// code for IE6, IE5
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function()
+    {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            return xmlhttp.responseText;
+        }
+    }
+    xmlhttp.open("GET", theUrl, false );
+    xmlhttp.send();    
+}
+    </script>
+    <style type="text/css">  
+	body {
+		font: 0.8em arial, helvetica, sans-serif;
+	}
+
+      .container-minwidth {
+          min-width: 900px;
+          float: centered;
+          width: auto !important;
+	  width: 900px; /* IE6 ignores the !important tag */
+
+	  /* would help for expanding content if it blows past 500px; */
+	  overflow:auto; 
+
+	  display: inline-block;
+	  border: 1px solid blue;
+	  margin: 0 auto;
+
+      }    
+
+      
+      .outer {
+          overflow-x: scroll;   
+      }
+      
+      .drow {
+	  width:100%;
+	  float:left;
+      }
+      .drow-content {
+	  width:90%;
+	  margin: 0 auto;
+	  
+      }
+      .drow-spacer { 
+	  width:10%;
+	  height:100%;
+      }
+
+      .action-divs {
+          display: inline;
+	  height:600px;
+	  width:650px;
+	  float:left;
+	  background: url(<%= asset_path "powder_12_copy.jpg" %>);
+	  background-size:100%;
+	  border: 1px solid blue;
+          background-repeat:no-repeat;
+      }
+      #header {
+        border: 5px solid #fc6;
+       
+	background-color:white;
+	height:20%;
+	background-size:100%
+        position: relative;
+        right: -5px;
+     }
+
+      #header button {
+         display:inline;
+          border: 0;
+          background-color: white;
+          font-size: 0.8em;
+          text-decoration: none;
+          
+          width: 6em;
+          padding: 0 1em 0 1em;
+          font-weight: bold;
+          color: black;
+          border-bottom: 0.5em solid #fc6;
+          color: #fc6;
+          position: relative;
+          top:0.2em;
+       }
+
+
+      #header button:hover {
+          color: #fa3;
+          border-color: #f80;
+      }
+
+
+      #heading {
+		margin: 0;
+		padding: 0.5em ;
+		color: #f80;
+		font-size: 3em;
+		font-style: italic;
+      }
+
+
+    </style>
+  </head>
+  
+  <body style="background-color:#f80;" >
+<br>
+<div id="outercontainer" class="drow" >
+
+  <div id="leftsidespacer" class="drow-spacer"></div>
+
+  <div class="drow-content">
+    
+    <div id="container" class="container-minwidth">
+      
+      <div id="header" >
+        
+	<h1 id="heading">aura decision point systems</h1>
+          <button type="hidden"  style="width:150px;border:0;"></button>
+	  <button id="about" type="button" onclick="changeShowdContent(this, 'This is imported')">This</button>
+	  <button id="help" type="button" onclick="changeShowdContent(this, 'some value')">That</button>  
+	  <button id="contact" type="button" onclick="changeShowdContent(this, 'roll-n-roll')">RollnRoll</button>
+	  <button id="home" type="button" onclick="changeShowdContent(this, 'about')">Rock</button>
+
+	
+      </div>
+
+      <div id="content" style="clear:both;display:block;padding:0;">
+
+	<div id="menu" style="display: inline;border: 1px solid blue;background-color:#FFD700;height:600px;width:110px;float:left;margin:0 5px 0 0;">
+	  <p style="padding: 0 0 0 10px;">
+	    <br>
+	  <b>Menu</b><br>
+	  HTML<br>
+	  CSS<br>
+	  Javascript<br>
+	  </p>
+	</div>
+
+	<div id="content" class="action-divs" style="margin: 0 5px 5px 0;" >
+          <div id="showd" style="text-align: center; position:relative; top:25%; color:#fff;">
+	    <%= yield(:help).html_safe %>	    
+	  </div>
+	</div>
+
+	<div id="righthandnavigator" style="border: 1px solid blue;height:600px;width:120px;float:right;background-color:#FFD600;display: inline;">
+	</div>
+
+      </div>
+      
+      <div id="footer" style="padding:10px;background-color:#FFA500;clear:both;text-align:center;">
+	Copyright © Aura Decision Point Systems</div>   
+    </div>
+
+    <div class="drow-spacer"></div>
+  </div>
+</body>
+</html>
