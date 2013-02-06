@@ -1,5 +1,8 @@
 AuraSys::Application.routes.draw do
   
+  get "users/new"
+  match '/signup', to: 'users#new'
+
   #get "static_pages/home"
   root to: 'static_pages#home'
 
